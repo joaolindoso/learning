@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+ 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"> 
+
+  <style>
+    * {
+    padding: 0;
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    color: #444;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom right, #38fbef, #5baffc);
+    height: 100vh;
+    /* background-image: url('.../img/bg.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+button {
+    background-color: #fdfdfd;
+    color: #102f5e;
+    border: 2px solid #102f5e;
+    padding: .3rem .6rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+
+button:hover {
+    background-color: #102f5e;
+    color: #ffffff;
+}
+
+button:hover > i {
+    color: #ffffff;
+}
+
+button i {
+    color: #102f5e;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+input, select {
+    padding: 0.25rem 0.5rem;
+}
+
+.hide {
+    display: none;
+}
+
+/* Header */
+
+.todo-container {
+    max-width: 450px;
+    margin: 3rem auto 0;
+    background-color: #fdfdfd;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.todo-container header {
+    text-align: center;
+    padding: 0 1rem 1rem;
+    border-bottom: 1px solid #cccccc;
+}
+
+/* Todo form */
+
+#todo-form, 
+#edit-form {
+    padding: 1rem;
+    border-bottom: 1px solid #cccccc;
+}
+
+#todo-form p,
+#edit-form p {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-control {
+    display: flex;
+}
+
+.form-control input {
+    margin-right: 0.3rem;
+}
+
+#cancel-edit-btn {
+    margin-top: 1rem;
+}
+
+/* Todo toolbar */
+
+#toolbar {
+    padding: 1rem;
+    border-bottom: 1px solid #cccccc;
+    display: flex;
+}
+
+#search {
+    border-right: 1px solid #dddddd;
+    padding-right: 1rem;
+    margin-right: 1rem;
+    width: 65%;
+    display: flex;
+    flex-flow: column;
+}
+
+#search form {
+    display: flex;
+}
+
+#search input {
+    width: 100%;
+    margin-right: 0.3rem;
+}
+
+#filter {
+    Width: 35%;
+    display: flex;
+    flex-flow: column;
+}
+
+#filter select {
+    flex: 1;
+}
+
+/* Todo List */
+
+.todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #cccccc;
+    transition: .3s;
+}
+
+.todo h3 {
+    flex: 1;
+    font-size: .9rem;
+}
+
+.todo button {
+    margin-left: 0.4rem;
+}
+
+.done {
+    background-color: #395169;
+}
+
+.done h3 {
+    color: #ffffff;
+    text-decoration: line-through;
+    font-style: italic;
+}
+  </style>
+</head>
+<body>
+    <div class="todo-container">
+        <header>
+            <h1>Todo List</h1>
+        </header>
+        <form id="todo-form">
+            <p>Adicione a sua tarefa:</p>
+            <div class="form-control">
+                <input type="text" id="todo-input" placeholder="O que você vai fazer?">
+                <button type="submit">
+                    <i class="fa-thin fa-plus"></i>
+                </button>
+            </div>
+        </form>
+        <form id="edit-form" class="hide">
+            <p>Edite a sua tarefa:</p>
+            <div class="form-control">
+                <input type="text" id="edit-input">
+                <button type="submit">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+            </div>
+            <button id="cancel-edit-btn">Cancelar</button>
+        </form>
+        <div id="toolbar">
+            <div id="search">
+                <h4>Pesquisar:</h4>
+                <form>
+                    <input type="text" id="search-input" placeholder="Buscar">
+                    <button id="erase-button">
+                        <i class="fa-solid fa-delete-left"></i>
+                    </button>
+                </form>
+            </div>
+            <div id="filter">
+                <h4>Filtrar:</h4>
+                <select id="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="done">Feitos</option>
+                    <option value="todo">A fazer</option>
+                </select>
+            </div>
+        </div>
+        <div id="todo-list">
+            <div class="todo done">
+                <h3>Estou fazendo alguma coisa...</h3>
+                <button class="finish-todo">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+                <button class="edit-todo">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="remove-todo">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="todo">
+                <h3>Estudar Javascript</h3>
+                <button class="finish-todo">
+                    <i class="fa-solid fa-check"></i>
+                </button>
+                <button class="edit-todo">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="remove-todo">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+  <script>
+    // Seleção de elementos
+const todoForm = document.querySelector("#todo-form");
+const todoInput = document.querySelector("#todo-input");
+const todoList = document.querySelector("#todo-list");
+const editForm = document.querySelector("#edit-form");
+const editInput = document.querySelector("#edit-input");
+const cancelEditBtn = document.querySelector("#cancel-edit-btn");
+
+let oldInputValue;
+
+// Funções
+const saveTodo = (text) => {
+
+    const todo = document.createElement("div");
+    todo.classList.add("todo");
+
+    const todoTitle = document.createElement("h3");
+    todoTitle.innerText = text;
+    todo.appendChild(todoTitle);
+
+    const doneBtn = document.createElement("button");
+    doneBtn.classList.add("finish-todo");
+    doneBtn.innerHTML = '<i class="fa-solid fa-check"</i>';
+    todo.appendChild(doneBtn);
+
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("edit-todo");
+    editBtn.innerHTML = '<i class="fa-solid fa-pen"</i>';
+    todo.appendChild(editBtn);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("remove-todo");
+    deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"</i>';
+    todo.appendChild(deleteBtn);
+
+    todoList.appendChild(todo);
+
+    todoInput.value = "";
+    todoInput.focus();
+}
+
+const toggleForms = () => {
+    editForm.classList.toggle("hide");
+    todoForm.classList.toggle("hide");
+    todoList.classList.toggle("hide");
+}
+
+const updateTodo = (text) => {
+    const todos = document.querySelectorAll(".todo");
+    todos.forEach((todo) => {
+        let todoTitle = todo.querySelector("h3");
+        if (todoTitle.innerText === oldInputValue) {
+            todoTitle.innerText = text;
+        }
+    });
+}
+
+// Eventos
+todoForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const inputValue = todoInput.value;
+
+    if(inputValue) {
+        saveTodo(inputValue)
+    }
+});
+
+document.addEventListener("click", (e) => {
+
+    const targetEl = e.target;
+    const parentEl = targetEl.closest("div");
+    let todoTitle;
+
+    if (parentEl && parentEl.querySelector("h3")) {
+        todoTitle = parentEl.querySelector("h3").innerText;
+    }
+
+    if(targetEl.classList.contains("finish-todo")) {
+        parentEl.classList.add("done")
+    }
+
+    if(targetEl.classList.contains("remove-todo")) {
+        parentEl.remove();
+    }
+
+    if(targetEl.classList.contains("edit-todo")) {
+        toggleForms();
+
+        editInput.value = todoTitle;
+        oldInputValue = todoTitle;
+
+        console.log(oldInputValue)
+    }
+});
+
+cancelEditBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    toggleForms();
+});
+
+editForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const editInputValue = editInput.value;
+
+    if (editInputValue) {
+        // atualizar
+        updateTodo(editInputValue)
+    }
+
+    toggleForms()
+})
+
+  </script>
+
+</body>
+</html>
